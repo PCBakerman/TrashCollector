@@ -10,13 +10,13 @@ namespace TrashCollector.Models
     public class ScheduleDates
     {
         [Key]
-        public int ScheduleDateId { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string LocationId { get; set; }
-        [ForeignKey("LocationId")]
+        [ForeignKey("Id")]
         public Location Location { get; set; }
         public string EmployeeId { get; set; }
-        [ForeignKey("EmployeeId")]
+        [ForeignKey("Id")]
         public Employee Employee { get; set; }
 
     }

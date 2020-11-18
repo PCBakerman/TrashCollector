@@ -11,7 +11,7 @@ namespace TrashCollector.Models
    
     public class Customer
     {   [Key]
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
         public string CustomerHomeAddress { get; set; }

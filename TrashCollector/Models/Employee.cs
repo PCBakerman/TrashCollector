@@ -10,7 +10,7 @@ namespace TrashCollector.Models
 {
     public class Employee
     {   [Key]
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
         public string EmployeeFirstName { get; set; }
         public string EmployeeLastName { get; set; }
         public string EmployeeHomeAddress { get; set; }
