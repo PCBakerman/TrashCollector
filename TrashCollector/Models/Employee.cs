@@ -10,14 +10,15 @@ namespace TrashCollector.Models
 {
     public class Employee
     {   [Key]
-        public int Id { get; set; }
-        public string EmployeeFirstName { get; set; }
-        public string EmployeeLastName { get; set; }
-        public string EmployeeHomeAddress { get; set; }
-        public int EmployeeHomePhoneNumber { get; set; }
-        public string EmployeeEmailAddress { get; set; }
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
+        public int EmployeeId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string HomeAddress { get; set; }
+        public int PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+        
+        [ForeignKey("IdentityUser")]
+        public string IdentityUserId { get; set; }
         public IdentityUser User { get; set; }
     }
 }

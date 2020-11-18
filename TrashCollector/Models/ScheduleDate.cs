@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace TrashCollector.Models
 {
-    public class ScheduleDates
+    public class ScheduleDate
     {
         [Key]
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        
+        [ForeignKey("LocationId")]
         public string LocationId { get; set; }
-        [ForeignKey("Id")]
         public Location Location { get; set; }
+        
+        [ForeignKey("EmployeeId")]
         public string EmployeeId { get; set; }
-        [ForeignKey("Id")]
         public Employee Employee { get; set; }
 
     }

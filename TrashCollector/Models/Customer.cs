@@ -11,14 +11,15 @@ namespace TrashCollector.Models
    
     public class Customer
     {   [Key]
-        public int Id { get; set; }
-        public string CustomerFirstName { get; set; }
-        public string CustomerLastName { get; set; }
-        public string CustomerHomeAddress { get; set; }
-        public int CustomerHomePhoneNumber { get; set; }
-        public string CustomerEmailAddress { get; set; }
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
+        public int CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string HomeAddress { get; set; }
+        public int PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+
+        [ForeignKey("IdentityUser")]
+        public string IdentityUserId { get; set; }
         public IdentityUser User { get; set; }
 
     }
