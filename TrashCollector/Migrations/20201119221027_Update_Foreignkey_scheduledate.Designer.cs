@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201119221027_Update_Foreignkey_scheduledate")]
+    partial class Update_Foreignkey_scheduledate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,24 +50,10 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6afd900f-ad18-4305-a362-f7e6b60119f8",
-                            ConcurrencyStamp = "ebe051a2-e4c1-4ebe-9510-44d0aea8ea68",
+                            Id = "07177f1b-bc15-411f-a06b-4c483797b52f",
+                            ConcurrencyStamp = "9bbf9685-0b65-4ba1-b8aa-b4da4c46939f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "4fa1611b-a893-4a7e-aef6-7d4f7e6129e7",
-                            ConcurrencyStamp = "61f440a4-2121-443c-99c3-83dfaba26997",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "da779c59-41d2-4916-a77d-88a00c16f6a5",
-                            ConcurrencyStamp = "2ca8666e-7268-40fe-ab6b-aa584a4940b5",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
                         });
                 });
 

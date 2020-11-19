@@ -13,12 +13,12 @@ namespace TrashCollector.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         
-        [ForeignKey("LocationId")]
-        public string LocationId { get; set; }
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }
         public Location Location { get; set; }
         
-        [ForeignKey("EmployeeId")]
-        public string EmployeeId { get; set; }
+        [ForeignKey("Employee")]
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
     }
