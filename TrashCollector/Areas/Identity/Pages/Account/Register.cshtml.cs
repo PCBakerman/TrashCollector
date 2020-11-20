@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using TrashCollector.Data;
+using TrashCollector.Models;
 
 namespace TrashCollector.Areas.Identity.Pages.Account
 {
@@ -25,13 +27,16 @@ namespace TrashCollector.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
+
 
             
         {
@@ -40,7 +45,10 @@ namespace TrashCollector.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
-            
+            _context = context;
+            var roles = _roleManager.Roles;
+            Roles = new SelectList(roles.Where(x => x.NormalizedName != "ADMIN"), "NormalizedName", "Name");
+
         }
 
         [BindProperty]
@@ -72,7 +80,7 @@ namespace TrashCollector.Areas.Identity.Pages.Account
             [Required]
             public string Role { get; set; }
         }
-
+        
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -90,10 +98,33 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
-                {
+                {   if (Input.Role == "CUSTOMER")
+                    {   //Add customer to database with userId, change return url to go to cutsomer info page
+                        var identityUser = await _userManager.FindByNameAsync(user.UserName);
+                        var customer = new Customer()
+                        {
+                            IdentityUserId = identityUser.Id
+                        };
+                        _context.Customers.Add(customer);
+                        await _context.SaveChangesAsync();
+                        var contextEmployee = _context.Customers.Where(x => x.IdentityUserId == identityUser.Id).FirstOrDefault();
+
+                    }
+                    else if(Input.Role == "EMPLOYEE")
+                    {   //Add employee to database with userId, change return url to go to Employee info page
+                        var identityUser = await _userManager.FindByNameAsync(user.UserName);
+                        var employee = new Employee() {
+                            IdentityUserId = identityUser.Id
+                        };
+                        _context.Employees.Add(employee);
+                        await _context.SaveChangesAsync();
+                        var contextEmployee = _context.Employees.Where(x => x.IdentityUserId == identityUser.Id).FirstOrDefault();
+                    }
+                        
                     if (await _roleManager.RoleExistsAsync(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
+
                     }
                     _logger.LogInformation("User created a new account with password.");
 

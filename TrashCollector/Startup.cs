@@ -42,7 +42,6 @@ namespace TrashCollector
             {
                 config.Filters.Add(typeof(GlobalRouting));
             });
-
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
